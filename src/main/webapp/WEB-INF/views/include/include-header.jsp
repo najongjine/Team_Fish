@@ -38,9 +38,16 @@
 </c:if>
 
 <c:if test="${U_NAME!=null }">
-<a href="${rootPath }/member/logout">
-<li class="nav-item">${U_NAME }(click to logout)</li>
+<li class="nav-item">
+<a href="${rootPath}/mypage/view">
+${U_NAME }(마이페이지)
 </a>
+</li>
+
+<li class="nav-item">
+<a href="${rootPath }/member/logout">
+${U_NAME }(click to logout)</a>
+</li>
 </c:if>
 </ul>
 </nav>

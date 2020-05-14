@@ -15,4 +15,6 @@ public interface MemberDao {
 	public int delete(String u_name);
 
 	public int update(MemberVO userVO);
+
+	public int pwupdate(MemberVO memberVO);
 }

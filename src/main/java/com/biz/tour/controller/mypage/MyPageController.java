@@ -45,7 +45,7 @@ public class MyPageController {
 		memberVO.setU_repassword("dummy");
 		model.addAttribute("memberVO", memberVO);
 		//마이페이지 보여줄 jsp
-		return null;
+		return "mypage/mypage";
 	}
 	
 	@RequestMapping(value = "/update",method=RequestMethod.GET)
@@ -59,17 +59,23 @@ public class MyPageController {
 		memberVO.setU_repassword("dummy");
 		model.addAttribute("memberVO", memberVO);
 		//마이페이지 수정 form 보여줄 jsp
-		return null;
+		return "mypage/update";
 	}
 	
 	@RequestMapping(value = "/update",method=RequestMethod.POST)
-	public String update(MemberVO memberVO,MultipartHttpServletRequest uploaded_files) {
+	public String update(@ModelAttribute("memberVO")MemberVO memberVO,MultipartHttpServletRequest uploaded_files) {
+		
+//		log.debug("##post업데이트 진입");
 		//update을 하고나서, update한 VO의 ID값을 받아와야함
-		int ret=memberService.update(memberVO);
+//		int ret=memberService.update(memberVO);
+		int ret=mypageService.update(memberVO);
+		
+//		log.debug("##update 마침");
 		long fk=memberVO.getU_id();
 		
 		//update한 VO의 ID값을 파일업로드+DB 업데이트까지 동시에 수행해주는 method에 Id값 전달
 		fUploadService.filesUp(uploaded_files, "tbl_members",fk);
+//		log.debug("##파일 업로드 마침");
 		
 		return "redirect:/mypage/view";
 	}
@@ -78,12 +84,13 @@ public class MyPageController {
 	public String resetPassword() {
 		
 		//이메일, 유저네임 입력받는 form jsp
-		return null;
+		return "mypage/repassword";
 	}
 	
 	@RequestMapping(value = "/resetpassword",method=RequestMethod.POST)
 	public String resetPassword(String username,String email) {
-		MemberVO memberVO=memberService.findByUsernameNemail(username,email);
+//		MemberVO memberVO=memberService.findByUsernameNemail(username,email);
+		MemberVO memberVO=mypageService.findByUsernameNemail(username,email);
 		
 		//비밀번호 1111 로 만듬과 동시에 유저한테 메일도 같이 보내줘야함
 		int ret=memberService.resetPassword(memberVO);
@@ -95,12 +102,12 @@ public class MyPageController {
 	@RequestMapping(value = "/changepassword",method=RequestMethod.GET)
 	public String changePassword() {
 		// 비밀번호만 변경 입력받는 form jsp
-		return null;
+		return "mypage/repassword";
 	}
 	
 	@RequestMapping(value = "/changepassword",method=RequestMethod.POST)
-	public String changePassword(String inputtedPrevPass,String inputtedNewPass) {
-		int ret=memberService.changePassword(inputtedPrevPass,inputtedNewPass);
+	public String changePassword(MemberVO memberVO) {
+		int ret=mypageService.changePassword(memberVO);
 		// 비밀번호만 변경 입력받는 form jsp
 		return "redirect:/";
 	}
