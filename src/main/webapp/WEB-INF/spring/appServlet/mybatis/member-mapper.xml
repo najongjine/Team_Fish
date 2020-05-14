@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biz.tour.dao.member.MemberDao">
+
+	<insert id="insert" parameterType="memberVO">
+		INSERT INTO
+		`tbl_members`
+		(
+		`u_name`,
+		`u_password`)
+		VALUES
+		(
+		#{u_name},
+		#{u_password});
+
+	</insert>
+
+	<update id="update" parameterType="memberVO">
+		UPDATE `tbl_members`
+		SET
+		`u_name` = #{u_name},
+		`u_role` = #{u_role},
+		`email` = #{email},
+		`phone` = #{phone},
+		`address` = #{address},
+		`enabled` = #{enabled}
+		WHERE `u_id` = #{u_id}
+
+	</update>
+
+</mapper> 

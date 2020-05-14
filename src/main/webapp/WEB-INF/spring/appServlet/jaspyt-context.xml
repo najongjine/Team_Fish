@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<bean id="envConfig" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+<property name="algorithm" value="PBEWithMD5AndDES"></property>
+<property name="passwordEnvName" value="testsalt"></property>
+</bean>
+<bean id="configEnc" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+<property name="config" ref="envConfig"></property>
+</bean>
+<bean class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+	<constructor-arg ref="configEnc"></constructor-arg>
+	<property name="locations">
+		<list>
+			<value>/WEB-INF/spring/appServlet/props/mysql.properties</value>
+			<value>/WEB-INF/spring/appServlet/props/naver.email.properties</value>
+		</list>
+	</property>
+</bean>
+</beans>

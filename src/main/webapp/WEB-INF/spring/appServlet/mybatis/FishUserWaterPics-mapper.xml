@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biz.tour.dao.userwater.FishUserWaterPicsDao">
+
+	<insert id="insert" parameterType="FishUserWaterPicsVO">
+		insert into
+		tbl_userfish_water_pics(
+		ufp_fk,
+		ufp_originalFName,
+		ufp_uploadedFName
+		) values (
+		#{ufp_fk,jdbcType=VARCHAR},
+		#{ufp_originalFName,jdbcType=VARCHAR},
+		#{ufp_uploadedFName,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+</mapper> 

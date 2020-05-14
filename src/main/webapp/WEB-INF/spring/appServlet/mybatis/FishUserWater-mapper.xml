@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biz.tour.dao.userwater.FishUserWaterDao">
+
+	<insert id="insert" parameterType="fishUserWaterVO" useGeneratedKeys="true" keyProperty="uf_id">
+		insert into
+		tbl_userfish_water(
+		uf_username,
+		uf_title,
+		uf_date,
+		uf_addr1,
+		uf_addr2,
+		uf_text
+		) values (
+		#{uf_username,jdbcType=VARCHAR},
+		#{uf_title,jdbcType=VARCHAR},
+		#{uf_date,jdbcType=VARCHAR},
+		#{uf_addr1,jdbcType=VARCHAR},
+		#{uf_addr2,jdbcType=VARCHAR},
+		#{uf_text,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="update" parameterType="fishUserWaterVO">
+		UPDATE
+		tbl_userfish_water
+		SET
+		uf_username = #{uf_username},
+		uf_title = #{uf_title},
+		uf_date = #{uf_date},
+		uf_addr1 = #{uf_addr1},
+		uf_addr2 = #{uf_addr2},
+		uf_text = #{uf_text}
+		WHERE uf_id = #{uf_id}
+	</update>
+</mapper> 
