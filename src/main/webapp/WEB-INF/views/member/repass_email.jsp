@@ -42,7 +42,7 @@ $(function() {
 			},
 			success:function(result){
 				alert(result)
-				document.location.replace("${rootPath}/mypage/re_join")
+				document.location.replace("${rootPath}/member/re_join")
 			},
 			error:function(){
 				alert("서버통신오류")

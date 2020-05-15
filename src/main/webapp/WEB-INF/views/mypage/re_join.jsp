@@ -141,7 +141,7 @@ $(function(){
 <body>
 <%@ include file="/WEB-INF/views/include/include-header.jsp" %>
 	<div class="container container-fluid">
-		<form:form method="POST" action="${rootPath}/mypage/re_join" class="join_form" modelAttribute="memberVO">
+		<form:form method="POST" action="${rootPath}/member/re_join" class="join_form" modelAttribute="memberVO">
 			<h2>비밀번호 재입력</h2>
 			<!-- 
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

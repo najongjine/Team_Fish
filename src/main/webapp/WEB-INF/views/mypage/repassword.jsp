@@ -76,12 +76,12 @@ $(document).ready(function() {
 			
 			<div class="list-group-item list-group-item-info">
 			<label for="u_password">비밀번호 : </label>
-			<form:input path="u_password" readonly="false" placeholder="password" class="my-text"/>
+			<form:input path="u_password" readonly="false" placeholder="비밀번호 입력" class="my-text"/>
 			</div>
 			
 			<div class="list-group-item list-group-item-info">
 			<label for="u_repassword">비밀번호 재입력 : </label>
-			<form:input path="u_repassword" readonly="false" placeholder="re_password" class="my-text"/>
+			<form:input path="u_repassword" readonly="false" placeholder="비밀번호 재입력" class="my-text"/>
 			</div>
 			
 			<button class="btn btn-success">비밀번호 변경</button>

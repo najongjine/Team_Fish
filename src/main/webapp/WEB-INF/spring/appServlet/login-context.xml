@@ -12,6 +12,9 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
+		
+			<mvc:mapping path="/mypage/*" />
+			
 			<mvc:mapping path="/fishUserWater/waterInsert*" />
 			<mvc:mapping path="/fishUserSea/seaInsert*" />
 			<mvc:mapping path="/fishUserWater/waterUpdate*" />

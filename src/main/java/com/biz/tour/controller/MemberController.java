@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.biz.tour.domain.member.MemberVO;
 import com.biz.tour.service.member.MemberService;
@@ -101,7 +102,7 @@ public class MemberController {
 		return "member/login";
 	}
 	@RequestMapping(value = "/login",method=RequestMethod.POST)
-	public String login(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result,HttpSession session,Model model) {
+	public String login(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result,HttpSession session,Model model,SessionStatus sstatus) {
 		if(result.hasErrors()) {
 			return "member/login";
 		}
@@ -112,11 +113,13 @@ public class MemberController {
 		
 		if(memberVO==null) return "member/loginFail";
 		session.setAttribute("U_NAME", memberVO.getU_name());
+		sstatus.setComplete();// 로그인 완료 후 session에 남아있는 id,비번 정보 초기화
 		return "redirect:/";
 	}
 	@RequestMapping(value = "/logout",method=RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session,SessionStatus sstatus) {
 		session.removeAttribute("U_NAME");
+		sstatus.setComplete();// 로그아웃 후 session에 남아있는 id,비번 정보 초기화
 		return "redirect:/";
 	}
 	@RequestMapping(value = "/delete",method=RequestMethod.GET)
@@ -157,7 +160,36 @@ public class MemberController {
 	}
 	
 
+	/*
+	 *  ID찾기,비번 재설정 이메일 인증키 체크 완료 후 비번 재설정 메서드
+	 *  db에서 이메일로 검색 후 비번만 초기화 하고 vo에 담아서 보내온 vo를 
+	 *  re_join.jsp로 보내기 
+	 */
+//	@ResponseBody
+	@RequestMapping(value="/re_join",method=RequestMethod.GET)
+	public String re_join(@ModelAttribute("memberVO")MemberVO memberVO, Model model) {
 		
+		MemberVO re_join = memService.findByIdresetpass(memberVO);
+		
+		model.addAttribute("memberVO",re_join);
+		
+		return "mypage/re_join";
+//		return re_join;
+	}
+	/*
+	 * ID찾기,비번 재설정 이메일 인증키 체크 완료 후 비번 재설정 메서드
+	 * re_join.jsp에서 비번 변경값 받아서 비번 변경 
+	 */
+	@RequestMapping(value="/re_join",method=RequestMethod.POST)
+	public String re_join(@ModelAttribute("memberVO")MemberVO memberVO, Model model,String email,SessionStatus session) {
+		
+		int ret = memService.re_member_join(memberVO);
+		
+		session.setComplete();// 로그인 완료 후 session에 남아있는 id,비번 정보 초기화
+		
+		return "redirect:/";
+		
+	}
 		
 	
 	
