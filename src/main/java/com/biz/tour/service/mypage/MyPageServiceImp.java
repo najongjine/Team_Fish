@@ -30,9 +30,16 @@ public class MyPageServiceImp implements MyPageService{
 		
 		return null;
 	}
+	
+	@Override
+	public int resetPassword(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public int changePassword(MemberVO memberVO) {
+		
 		// DB에 저장
 		String encPassword=passwordEncoder.encode(memberVO.getU_password());
 		memberVO.setU_password(encPassword);

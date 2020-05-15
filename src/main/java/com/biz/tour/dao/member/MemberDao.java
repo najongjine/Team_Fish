@@ -17,4 +17,8 @@ public interface MemberDao {
 	public int update(MemberVO userVO);
 
 	public int pwupdate(MemberVO memberVO);
+
+	public MemberVO findByUserEmail(String email);
+
+	public int re_update(MemberVO memberVO);
 }

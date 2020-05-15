@@ -10,4 +10,6 @@ public interface MyPageService {
 
 	public int changePassword(MemberVO memberVO);
 
+	int resetPassword(MemberVO memberVO);
+
 }

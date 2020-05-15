@@ -124,4 +124,42 @@ public class MemberController {
 		int ret=memService.delete(u_name);
 		return "redirect:/";
 	}
+	
+	// email로 ID찾기,비번 재설정을 하기위한 email 입력 페이지
+	@RequestMapping(value="/findID",method=RequestMethod.GET)
+	public String findID(@ModelAttribute("memberVO") MemberVO memberVO) {
+		//memService.findByIdresetpass(email);
+		return "member/repass_email";
+	}
+	// email로 ID찾기,비번 재설정을 하기위한 email 입력 페이지
+	@RequestMapping(value="/findID",method=RequestMethod.POST)
+	public String findID(@ModelAttribute("memberVO") MemberVO memberVO,Model model) {
+		String email_token = memService.findId_getToken(memberVO);
+		
+		model.addAttribute("My_Email_Secret",email_token);
+		model.addAttribute("JOIN","EMAIL_OK");
+		
+		return "member/repass_email";
+	}
+	
+	// ID찾기,비번 초기화 이메일 인증키 체크메서드
+	@ResponseBody
+	@RequestMapping(value = "/findId_email_token_check",method=RequestMethod.POST)
+	public String findId_email_token_check(
+			@RequestParam("email") String email,
+			@RequestParam("secret_key") String secret_key,
+			@RequestParam("secret_value") String secret_value) {
+//		log.debug("## entered email token check: "+username+","+secret_key+","+secret_value);
+		boolean bKey=memService.findId_email_token_ok(email,secret_key,secret_value);
+		
+		if(bKey) return "OK";
+		else return "FAIL";
+	}
+	
+
+		
+		
+	
+	
+	
 }
