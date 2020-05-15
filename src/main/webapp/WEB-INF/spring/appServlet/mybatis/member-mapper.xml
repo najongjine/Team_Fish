@@ -30,5 +30,32 @@
 		WHERE `u_id` = #{u_id}
 
 	</update>
+	
+	<select id="findByUserEmail" resultType="memberVO">
+ 		SELECT
+ 		u_id,
+ 		 u_name,
+ 		 enabled,
+ 		 email,
+ 		 phone,
+ 		 address 
+ 		 FROM tbl_members WHERE email = #{email}
+ 	</select>
+ 	
+ 	<!-- email로 ID찾기/비번변경 맵퍼 -->
+ 	<update id="re_update" parameterType="memberVO">
+		UPDATE `tbl_members`
+		SET
+		`u_name` = #{u_name},
+		`u_password` = #{u_password},
+		`u_role` = #{u_role},
+		`email` = #{email},
+		`phone` = #{phone},
+		`address` = #{address},
+		`enabled` = #{enabled}
+		WHERE `u_id` = #{u_id}
+
+	</update>
+	
 
 </mapper> 

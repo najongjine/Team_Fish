@@ -31,4 +31,10 @@ public interface MemberService {
 	
 	//로그인시 포인트 적립. 서브테이블에 username 있으면 포인트 적립 안함
 	public void raisePoint(@Valid MemberVO memberVO);
+	
+	public MemberVO findByIdresetpass(MemberVO memberVO);
+	
+	public String findId_getToken(MemberVO memberVO);
+	public boolean findId_email_token_ok(String email, String secret_key, String secret_value);
+	public int re_member_join(MemberVO memberVO);
 }

@@ -97,7 +97,7 @@ $(document).ready(function() {
 <form:input type="password" path="u_repassword" placeholder="re_password" class="form-control"/>
 <button class="btn btn-outline-primary" id="btn-join" type="button">회원가입</button>
 
-<a href="${rootPath }/password/resetPass">
+<a href="${rootPath}/member/findID">
 <button class="btn btn-outline-success" id="btn-loss" type="button">비밀번호를 잃어버렸다...</button>
 </a>
 </form:form>

@@ -24,6 +24,7 @@
 </p>
 <button id="btn-login">submit</button>
 <a id="regiLink" href="${rootPath }/member/register">Sign Up</a>
+<a id="findID" href="${rootPath}/member/findID">ID/비밀번호 찾기</a>
 </form:form>
 </section>
 </body>

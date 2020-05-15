@@ -32,16 +32,17 @@ $(function() {
 			return false
 		}
 		$.ajax({
-			url:"${rootPath}/member/email_token_check",
+			url:"${rootPath}/member/findId_email_token_check",
 			method:"POST",
 			data:{
-				secret_id:"${username}",
+				"${_csrf.parameterName}" : "${_csrf.token}",
+				email:$("#email").val(),
 				secret_key:secret_key,
 				secret_value:secret_value
 			},
 			success:function(result){
 				alert(result)
-				document.location.replace("${rootPath}/member/login")
+				document.location.replace("${rootPath}/mypage/re_join")
 			},
 			error:function(){
 				alert("서버통신오류")
@@ -55,9 +56,9 @@ $(function() {
 <%@ include file="/WEB-INF/views/include/include-mypage.jsp"%>
 <section class="email_body">
 <h2>Email 인증</h2>
-<div>비밀번호를 변경하려면 E-mail 인증을 완료해야 합니다</div>
+<div>ID찾기/비밀번호를 변경하려면 E-mail 인증을 완료해야 합니다</div>
 <p>
-<form:form action="${rootPath }/member/register_last" modelAttribute="memberVO" class="form-group">
+<form:form action="${rootPath }/member/findID" method="post" modelAttribute="memberVO" class="form-group">
 	<div class="form-group">
 	<form:input path="email" type="email" placeholder="email"/>
 	</div>
@@ -68,7 +69,7 @@ $(function() {
 		<br/>
 		<p>E-mail을 열어서 인증코드를 확인한 후 아래 입력란에 입력 후 인증 버튼을 클릭하세요</p>
 		<div class="form-group">
-		<span id="secret">${My_Email_Secret }</span>
+		<span id="secret">${My_Email_Secret}</span>
 		<input id="email_ok" class="form-control" placeholder="인증코드 입력">
 		<button type="button" id="btn_email_ok" class="btn btn-outline-primary">인증하기</button>
 		</div>
