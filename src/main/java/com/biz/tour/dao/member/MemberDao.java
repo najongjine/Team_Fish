@@ -1,5 +1,7 @@
 package com.biz.tour.dao.member;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,4 +23,6 @@ public interface MemberDao {
 	public MemberVO findByUserEmail(String email);
 
 	public int re_update(MemberVO memberVO);
+
+	public int date_update(@Valid MemberVO memberVO);
 }

@@ -1,5 +1,7 @@
 package com.biz.tour.service.member;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -101,9 +103,58 @@ public class MemberServiceImp implements MemberService{
 		return 0;
 	}
 	@Override
-	public void raisePoint(@Valid MemberVO memberVO) {
-		// TODO Auto-generated method stub
+	public int raisePoint(@Valid MemberVO memberVO) {
+		// 년 월 일 변수 생성
+		SimpleDateFormat curDate = new SimpleDateFormat ( "yyyy-MM-dd");
 		
+		// 현재 날짜 데이터 생성 후 date 변수에 주입
+		Date date = new Date();
+		log.debug("date : " + date);
+		
+		// strcurDate 변수에 년월일 방식으로 현재 날짜 데이터를 주입
+		String strcurDate = curDate.format(date);
+		
+		/*
+		 *  현재 날짜와 u_date(마지막 로그인 날짜)가 틀리면 포인트 +1
+		 *  같다면 오늘 로그인 했었단 뜻이니 포인트 중복 방지하기 위함 
+		 */
+		if(!strcurDate.equals(memberVO.getU_date())) {
+			log.debug("현재 포인트 : " + memberVO.getPoint());//테스트용 로그
+			int intPoint = memberVO.getPoint();
+			log.debug("intPoint : " + intPoint);//테스트용 로그
+			// null이면 회원가입 후 최초 로그인
+			if(memberVO.getU_date() == null) {
+				intPoint = intPoint + 100;
+				memberVO.setPoint(intPoint);
+				log.debug("최초 로그인 포인트 + 100  : " + memberVO.getPoint());//테스트용 로그
+				
+				// VO에 strcurDate 셋팅
+				memberVO.setU_date(strcurDate);
+				
+				// u_date,point 칼럼만 업데이트(VO)
+				memDao.date_update(memberVO);
+				return 0;
+			}
+			// 포인트 + 1 해서 VO에 point 칼럼에 셋팅
+			intPoint =  intPoint + 1;
+			memberVO.setPoint(intPoint);
+			log.debug("일일 로그인 포인트 + 1 : " + memberVO.getPoint());// 테스트용 로그
+			
+			// VO에 strcurDate 셋팅
+			memberVO.setU_date(strcurDate);
+			
+			// u_date,point 칼럼만 업데이트(VO)
+			memDao.date_update(memberVO);
+			return 0;
+		}
+		
+		// VO에 strcurDate 셋팅
+		memberVO.setU_date(strcurDate);
+		
+		// u_date,point 칼럼만 업데이트(VO)
+		memDao.date_update(memberVO);
+		
+		return 0;
 	}
 
 	@Override

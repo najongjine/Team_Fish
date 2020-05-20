@@ -87,6 +87,21 @@ public class MemberController {
 		else return "FAIL";
 	}
 	
+
+	@RequestMapping(value = "/register",method=RequestMethod.POST)
+	public String register(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result) {
+		if(result.hasErrors()) {
+			return "member/register";
+		}
+		if(!memberVO.getU_password().equals(memberVO.getU_repassword())) {
+			return null;
+		}
+		int ret=memService.insert(memberVO);
+		return "redirect:/";
+	}
+	
+=======
+
 	@RequestMapping(value = "/login",method=RequestMethod.GET)
 	public String login(@ModelAttribute("memberVO") MemberVO memberVO,Model model) {
 		model.addAttribute("memberVO", memberVO);

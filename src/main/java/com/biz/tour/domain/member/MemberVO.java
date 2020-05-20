@@ -33,4 +33,6 @@ public class MemberVO {
 	private int point;
 	
 	private String profile_pic;
+	
+	private String u_date;
 }
