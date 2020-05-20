@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.biz.tour.domain.member.MemberVO;
 import com.biz.tour.domain.usersea.FishUserSeaPicsVO;
 import com.biz.tour.domain.userwater.FishUserWaterPicsVO;
-import com.biz.tour.service.usersea.UserSeaPicsServiceImp;
-import com.biz.tour.service.usersea.UserSeaServiceImp;
-import com.biz.tour.service.userwater.UserWaterPicsServiceImp;
-import com.biz.tour.service.userwater.UserWaterServiceImp;
+import com.biz.tour.service.member.MemberService;
+import com.biz.tour.service.usersea.UserSeaPicsService;
+import com.biz.tour.service.usersea.UserSeaService;
+import com.biz.tour.service.userwater.UserWaterPicsService;
+import com.biz.tour.service.userwater.UserWaterService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class FileUploadToServerServiceImp implements FileUploadToServerService{
-	private final UserWaterPicsServiceImp uwPicsService;
-	private final UserSeaPicsServiceImp usPicsService;
-	private final UserWaterServiceImp uwService;
-	private final UserSeaServiceImp usService;
+	private final UserWaterPicsService uwPicsService;
+	private final UserSeaPicsService usPicsService;
+	private final UserWaterService uwService;
+	private final UserSeaService usService;
+	private final MemberService memberService;
 	// 바다낚시 사진 테이블 선언해 줘야함
 
 	// servlet-context.xml에 설정된 파일 저장 경로 정보를 가져와서 사용하기
@@ -80,13 +83,22 @@ public class FileUploadToServerServiceImp implements FileUploadToServerService{
 				int ret = uwPicsService.insert(uwPicsVO);
 				log.debug("!!! pic upload ret :" + ret);
 			}
-			if (whichTable.equalsIgnoreCase("sea")) {
+			else if (whichTable.equalsIgnoreCase("sea")) {
 				FishUserSeaPicsVO usPicsVO = new FishUserSeaPicsVO();
 				//long fk = usService.getMaxID();
 				usPicsVO.setUfp_fk(fk);
 				usPicsVO.setUfp_originalFName(originalFileName);
 				usPicsVO.setUfp_uploadedFName(UploadedFName);
 				int ret = usPicsService.insert(usPicsVO);
+				log.debug("!!! pic upload ret :" + ret);
+			}
+			else if (whichTable.equalsIgnoreCase("tbl_members")) {
+				//여기서 fk는 외래키 아님... 진짜 member 테이블의 Id임
+				MemberVO memberVO=memberService.findById(fk);
+
+				memberVO.setProfile_pic(UploadedFName);
+
+				int ret=memberService.update(memberVO);
 				log.debug("!!! pic upload ret :" + ret);
 			}
 

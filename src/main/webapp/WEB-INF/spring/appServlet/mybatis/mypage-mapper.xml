@@ -5,7 +5,7 @@
 
 <mapper namespace="com.biz.tour.dao.member.MemberDao">
 
-	<update id="pwupdate" parameterType="memberVO">
+	<update id="pwupdate" parameterType="memberVO" useGeneratedKeys="true" keyProperty="u_id">
 		UPDATE `tbl_members`
 		SET
 		`u_password` = #{u_password}

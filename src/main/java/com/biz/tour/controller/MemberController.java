@@ -100,8 +100,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-=======
-
 	@RequestMapping(value = "/login",method=RequestMethod.GET)
 	public String login(@ModelAttribute("memberVO") MemberVO memberVO,Model model) {
 		model.addAttribute("memberVO", memberVO);
