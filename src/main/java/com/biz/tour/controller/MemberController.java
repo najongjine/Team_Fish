@@ -45,7 +45,10 @@ public class MemberController {
 	 *memberVO에 데이터를 받아서 sessionAttributes에 설정된 저장소에 저장해두고 이메일 인증 화면 보여주기  
 	 */
 	@RequestMapping(value = "/register_next",method=RequestMethod.POST)
-	public String join_next(@ModelAttribute("memberVO") MemberVO memberVO) {
+	public String join_next(@ModelAttribute("memberVO") MemberVO memberVO,BindingResult result) {
+		if(result.hasErrors()) {
+			return "member/register";
+		}
 		return "member/register_email";
 	}
 	
@@ -84,6 +87,7 @@ public class MemberController {
 		else return "FAIL";
 	}
 	
+
 	@RequestMapping(value = "/register",method=RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result) {
 		if(result.hasErrors()) {
@@ -93,10 +97,11 @@ public class MemberController {
 			return null;
 		}
 		int ret=memService.insert(memberVO);
-//		sstatus.setComplete();// 로그인 완료 후 session에 남아있는 id,비번 정보 초기화
 		return "redirect:/";
 	}
 	
+=======
+
 	@RequestMapping(value = "/login",method=RequestMethod.GET)
 	public String login(@ModelAttribute("memberVO") MemberVO memberVO,Model model) {
 		model.addAttribute("memberVO", memberVO);
