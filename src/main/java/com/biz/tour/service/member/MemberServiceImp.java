@@ -220,4 +220,9 @@ public class MemberServiceImp implements MemberService{
 		
 		return ret;
 	}
+	@Override
+	public MemberVO findById(long id) {
+		// TODO Auto-generated method stub
+		return memDao.findById(id);
+	}
 }

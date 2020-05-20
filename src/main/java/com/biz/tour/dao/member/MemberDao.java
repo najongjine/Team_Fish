@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Select;
 import com.biz.tour.domain.member.MemberVO;
 
 public interface MemberDao {
+	@Select("select * from tbl_members where u_id=#{id}")
+	public MemberVO findById(long id);
+	
 	@Select("select * from tbl_members where u_name=#{u_name}")
 	public MemberVO findByUName(String u_name);
 	
@@ -25,4 +28,5 @@ public interface MemberDao {
 	public int re_update(MemberVO memberVO);
 
 	public int date_update(@Valid MemberVO memberVO);
+
 }

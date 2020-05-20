@@ -6,6 +6,7 @@ import com.biz.tour.domain.member.MemberVO;
 
 public interface MemberService {
 	
+	public MemberVO findById(long  id);
 	public MemberVO findByUName(String u_name);
 	public int insert(MemberVO MemberVO);
 	public int delete(String u_name);

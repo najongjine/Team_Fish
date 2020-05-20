@@ -5,7 +5,7 @@
 
 <mapper namespace="com.biz.tour.dao.member.MemberDao">
 
-	<insert id="insert" parameterType="memberVO">
+	<insert id="insert" parameterType="memberVO" useGeneratedKeys="true" keyProperty="u_id">
 		INSERT INTO
 		`tbl_members`
 		(
@@ -18,7 +18,7 @@
 
 	</insert>
 
-	<update id="update" parameterType="memberVO">
+	<update id="update" parameterType="memberVO" useGeneratedKeys="true" keyProperty="u_id">
 		UPDATE `tbl_members`
 		SET
 		`u_name` = #{u_name},
@@ -43,7 +43,7 @@
  	</select>
  	
  	<!-- email로 ID찾기/비번변경 맵퍼 -->
- 	<update id="re_update" parameterType="memberVO">
+ 	<update id="re_update" parameterType="memberVO" useGeneratedKeys="true" keyProperty="u_id">
 		UPDATE `tbl_members`
 		SET
 		`u_name` = #{u_name},
@@ -57,7 +57,7 @@
 
 	</update>
 	
-	<update id="date_update" parameterType="memberVO">
+	<update id="date_update" parameterType="memberVO" useGeneratedKeys="true" keyProperty="u_id">
 		UPDATE `tbl_members`
 		SET
 		`u_date` = #{u_date},
