@@ -85,7 +85,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/register",method=RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result) {
+	public String register(@Valid @ModelAttribute("memberVO") MemberVO memberVO,BindingResult result,SessionStatus sstatus) {
 		if(result.hasErrors()) {
 			return "member/register";
 		}
@@ -93,6 +93,7 @@ public class MemberController {
 			return null;
 		}
 		int ret=memService.insert(memberVO);
+		sstatus.setComplete();// 로그인 완료 후 session에 남아있는 id,비번 정보 초기화
 		return "redirect:/";
 	}
 	

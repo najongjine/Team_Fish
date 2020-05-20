@@ -70,7 +70,8 @@ create table tbl_members(
     phone VARCHAR(15),
     address VARCHAR(125),
     point INT default 0,
-    profile_pic VARCHAR(125)
+    profile_pic VARCHAR(125),
+    u_date VARCHAR(10) 마지막 로그인 날짜
 );
 
 

@@ -30,7 +30,7 @@ public interface MemberService {
 	public int changePassword(String inputtedPrevPass, String inputtedNewPass);
 	
 	//로그인시 포인트 적립. 서브테이블에 username 있으면 포인트 적립 안함
-	public void raisePoint(@Valid MemberVO memberVO);
+	public int raisePoint(@Valid MemberVO memberVO);
 	
 	public MemberVO findByIdresetpass(MemberVO memberVO);
 	

@@ -57,5 +57,14 @@
 
 	</update>
 	
+	<update id="date_update" parameterType="memberVO">
+		UPDATE `tbl_members`
+		SET
+		`u_date` = #{u_date},
+		`point` = #{point}
+		WHERE `u_id` = #{u_id}
+
+	</update>
+	
 
 </mapper> 
