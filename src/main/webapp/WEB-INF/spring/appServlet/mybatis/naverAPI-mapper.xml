@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biz.tour.dao.marinelife.NaverAPIDao">
+	
+	<insert id="insertFull" parameterType="naverAPIVO">
+		INSERT INTO tbl_naverapi(title, link, description, thumbnail, isfullinfo) VALUES
+		<foreach collection="list" item="list" separator=",">
+		(#{list.title},#{list.link},#{list.description},#{list.thumbnail},#{list.isFullInfo})
+		</foreach>
+	</insert>
+	
+	
+	
+	
+</mapper> 

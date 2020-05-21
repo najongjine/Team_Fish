@@ -29,6 +29,20 @@ $(function(){
 	$("#showDaumMap").click(function() {
 		$("#daumMap").toggle()
 	})
+	
+	
+	$.ajax({
+		url:"${rootPath}/marinelifeapi/marinedetailpage", type:'get',
+		success:function(result){
+			
+			$('.marineBoxDiv').html(result)
+			
+		},error:function(){
+			alert('서버 에러')
+		}
+	})
+	
+	
   })
 </script>
 <body>
@@ -56,11 +70,18 @@ $(function(){
 	<p>Addr 1: ${fishVO.addr1}</p>
 	<p>Addr 2: ${fishVO.addr2}</p>
 	<p>zipcode: ${fishVO.zipcode}</p>
-	<p>mapX: ${fishVO.mapx}</p>
-	<p>mapY: ${fishVO.mapy}</p>
+	<p id="mapY">${fishVO.mapx}</p>
+	<p id="mapX">${fishVO.mapy}</p>
 	<p>mlevel: ${fishVO.mlevel}</p>
 	<p>description : ${fishVO.overview}</p>
 	</section>
+	
+	
+	<div class="marineBoxDiv">
+	
+	
+	
+	</div>
 	
 	<section id="daumMapButton">
 	<br/>
