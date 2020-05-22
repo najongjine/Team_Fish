@@ -85,7 +85,7 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public int update(MemberVO memberVO) {
 		// TODO Auto-generated method stub
-		return 0;
+		return memDao.update(memberVO);
 	}
 	@Override
 	public MemberVO findByUsernameNemail(String username, String email) {

@@ -26,6 +26,7 @@
 		`email` = #{email},
 		`phone` = #{phone},
 		`address` = #{address},
+		`profile_pic`=#{profile_pic},
 		`enabled` = #{enabled}
 		WHERE `u_id` = #{u_id}
 

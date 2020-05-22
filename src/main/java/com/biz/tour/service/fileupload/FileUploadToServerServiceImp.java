@@ -52,6 +52,7 @@ public class FileUploadToServerServiceImp implements FileUploadToServerService{
 		if (uploadedFile.isEmpty())
 			return null;
 
+		log.debug("## uploadedFile: "+uploadedFile.getOriginalFilename().toString());
 		// upload할 filePath가 있는지 확인을 하고
 		// 없으면 폴더를 생성
 		File dir = new File(filePath);
@@ -94,12 +95,14 @@ public class FileUploadToServerServiceImp implements FileUploadToServerService{
 			}
 			else if (whichTable.equalsIgnoreCase("tbl_members")) {
 				//여기서 fk는 외래키 아님... 진짜 member 테이블의 Id임
+				log.debug("## tbl member pic upload 진입");
 				MemberVO memberVO=memberService.findById(fk);
 
 				memberVO.setProfile_pic(UploadedFName);
+				log.debug("## pic upload memberVO: "+memberVO.toString());
 
 				int ret=memberService.update(memberVO);
-				log.debug("!!! pic upload ret :" + ret);
+				log.debug("## pic upload ret: "+ret);
 			}
 
 			return UploadedFName;
